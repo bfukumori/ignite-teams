@@ -37,6 +37,7 @@ export function Players() {
             />
           )}
           horizontal
+          showsHorizontalScrollIndicator={false}
         />
         <NumberOfPlayers>{players.length}</NumberOfPlayers>
       </HeaderList>
