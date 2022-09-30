@@ -1,14 +1,20 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
 import { Container } from './styles';
+import { RootStackScreenProps } from 'src/@types/navigation';
 import { GroupCard } from '@components/GroupCard';
 import { Header } from '@components/Header';
 import { Highlight } from '@components/Highlight';
 import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
 
-export function Groups() {
+export function Groups({ navigation }: RootStackScreenProps<'Groups'>) {
   const [groups, setGroups] = useState<string[]>([]);
+
+  function handleNewGroup() {
+    navigation.navigate('New');
+  }
+
   return (
     <Container>
       <Header />
@@ -23,7 +29,7 @@ export function Groups() {
         )}
         showsVerticalScrollIndicator={false}
       />
-      <Button title='Criar nova turma' />
+      <Button title='Criar nova turma' onPress={handleNewGroup} />
     </Container>
   );
 }

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { FlatList } from 'react-native';
+import { RootStackScreenProps } from 'src/@types/navigation';
+import { Container, Form, HeaderList, NumberOfPlayers } from './styles';
 import { ButtonIcon } from '@components/ButtonIcon';
 import { Filter } from '@components/Filter';
 import { Header } from '@components/Header';
@@ -7,20 +9,17 @@ import { Highlight } from '@components/Highlight';
 import { Input } from '@components/Input';
 import { PlayerCard } from '@components/PlayerCard';
 import { ListEmpty } from '@components/ListEmpty';
-import { Container, Form, HeaderList, NumberOfPlayers } from './styles';
 import { Button } from '@components/Button';
 
-export function Players() {
+export function Players({ route }: RootStackScreenProps<'Players'>) {
   const [team, setTeam] = useState('Time A');
   const [players, setPlayers] = useState([]);
+  const { group } = route.params;
 
   return (
     <Container>
-      <Header />
-      <Highlight
-        title='Nome da turma'
-        subtitle='Adicione a galera e separe os times'
-      />
+      <Header backButtonShown />
+      <Highlight title={group} subtitle='Adicione a galera e separe os times' />
       <Form>
         <Input placeholder='Nome da pessoa' autoCorrect={false} />
         <ButtonIcon icon='add' />

@@ -8,9 +8,7 @@ import {
 } from '@expo-google-fonts/roboto';
 import * as SplashScreen from 'expo-splash-screen';
 import theme from '@theme/index';
-import { Groups } from '@screens/Groups';
-import { NewGroup } from '@screens/NewGroup';
-import { Players } from '@screens/Players';
+import { Routes } from '@routes/index';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -37,10 +35,11 @@ export default function App() {
         backgroundColor='transparent'
         translucent
       />
-      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        {/* <Groups /> */}
-        {/* <NewGroup /> */}
-        <Players />
+      <View
+        onLayout={onLayoutRootView}
+        style={{ flex: 1, backgroundColor: theme.COLORS.GRAY_600 }}
+      >
+        <Routes />
       </View>
     </ThemeProvider>
   );
