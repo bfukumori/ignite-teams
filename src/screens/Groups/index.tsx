@@ -9,8 +9,10 @@ import { Highlight } from '@components/Highlight';
 import { ListEmpty } from '@components/ListEmpty';
 import { Button } from '@components/Button';
 import { groupsGetAll } from '@storage/group/groupsGetAll';
+import { Loading } from '@components/Loading';
 
 export function Groups({ navigation }: RootStackScreenProps<'Groups'>) {
+  const [isLoading, setIsLoading] = useState(false);
   const [groups, setGroups] = useState<string[]>([]);
 
   function handleNewGroup() {
@@ -25,11 +27,14 @@ export function Groups({ navigation }: RootStackScreenProps<'Groups'>) {
     useCallback(() => {
       async function fetchGroups() {
         try {
+          setIsLoading(true);
           const data = await groupsGetAll();
           setGroups(data);
         } catch (error) {
           Alert.alert('Dados', 'Não foi possível carregar os dados!');
           console.log(error);
+        } finally {
+          setIsLoading(false);
         }
       }
       fetchGroups();
@@ -40,18 +45,22 @@ export function Groups({ navigation }: RootStackScreenProps<'Groups'>) {
     <Container>
       <Header />
       <Highlight title='Turmas' subtitle='Jogue com a sua turma' />
-      <FlatList
-        data={groups}
-        keyExtractor={(item) => item}
-        renderItem={({ item }) => (
-          <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
-        )}
-        contentContainerStyle={groups.length === 0 && { flex: 1 }}
-        ListEmptyComponent={() => (
-          <ListEmpty message='Que tal cadastrar a primeira turma?' />
-        )}
-        showsVerticalScrollIndicator={false}
-      />
+      {!isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={groups}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
+          )}
+          contentContainerStyle={groups.length === 0 && { flex: 1 }}
+          ListEmptyComponent={() => (
+            <ListEmpty message='Que tal cadastrar a primeira turma?' />
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
       <Button title='Criar nova turma' onPress={handleNewGroup} />
     </Container>
   );
