@@ -19,7 +19,7 @@
 </p>
 
 <h1 align="center">
-    <img alt="ignite-teams" title="#ignite-teams" src="./.github/logo.svg" />
+    <img alt="ignite-teams" title="#ignite-teams" src="./.github/logo.png" />
 </h1>
 
 <p align="center">
